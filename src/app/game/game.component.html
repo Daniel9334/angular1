@@ -1,0 +1,23 @@
+<h2>Strona gry</h2>
+<button (click)="exitGame()">Wyjdź z gry</button>
+<p>Witaj, {{ playerName }}!</p>
+<ngx-race #game (carOvertaken)="grantPoints()"></ngx-race>
+<button (click)="game.actionStart()">Start</button>
+<button (click)="game.actionStop()">Stop</button>
+<button (click)="game.actionReset()">Reset</button>
+<button (click)="game.actionTurboOn()">Turbo ON</button>
+<button (click)="game.actionLeft()">Left</button>
+<button (click)="game.actionRight()">Right</button>
+<button (click)="game.actionTurboOff()">Turbo OFF</button>
+<div>
+  <span>Stan gry:</span>
+  <span>{{ gameStarted ? 'Uruchomiona' : 'Zakończona' }}</span>
+</div>
+<div>
+  <span>Liczba punktów:</span>
+  <span>{{ points }}</span>
+</div>
+<div>
+  <span>Czas gry:</span>
+  <span>{{ timePlayed }}</span>
+</div>
