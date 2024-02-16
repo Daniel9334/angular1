@@ -1,19 +1,11 @@
 <div *ngIf="!gameStarted">
-  <h2>Strona wprowadzająca</h2>
-  <p>Krótki tekst wprowadzający.</p>
-  <form (submit)="startGame()">
-    <div>
-      <label>Nazwa gracza:</label>
-      <input type="text" [(ngModel)]="playerName" name="playerName" required>
-    </div>
-    <div>
-      <label>Adres e-mail gracza:</label>
-      <input type="email" [(ngModel)]="email" name="email" required>
-    </div>
-    <button type="submit">Rozpocznij grę</button>
-  </form>
+  <app-intro (isStartGame) = 'startGame($event)'></app-intro>
 </div>
 
 <div *ngIf="gameStarted">
-  <app-game (isexitGame) = 'exitGame($event)'></app-game>
+  <app-game [playerName]="playerName" (isexitGame) = 'exitGame($event)'></app-game>
 </div>
+
+
+
+

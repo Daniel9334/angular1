@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxRaceModule } from 'ngx-race';
 
 @Component({
@@ -11,9 +11,9 @@ import { NgxRaceModule } from 'ngx-race';
 
 export class GameComponent {
   @Output() public isexitGame = new EventEmitter<boolean>();
+  @Input() playerName: string | undefined
 
   title = 'race';  
-  playerName: string | undefined;
   email: string | undefined;
   gameStarted: boolean = false;
   points: number = 0;
