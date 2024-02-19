@@ -23,7 +23,7 @@ export class AppComponent {
 startGame(event: {playerName: string, email: string}) { 
     this.playerName = event.playerName;
     this.email = event.email;
-    this.gameStarted = true;
+    this.gameStarted = true; 
 }
 
 exitGame (event:boolean) {
