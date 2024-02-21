@@ -1,11 +1,12 @@
-<h2>Strona wprowadzająca</h2>
-<p>Witaj w grze samochodowej.</p>
+<div class="form-container">
+  <div class="form-content">
+<p>WITAJ W GRZE F1 WYŚCIG</p>
 
-<form (submit)="startGame()" #gameForm="ngForm">
+<form (ngSubmit)="startGame()" #gameForm="ngForm">
   <div>
     <label for="playerName">Nazwa gracza:</label>
     <input type="text" id="playerName" [(ngModel)]="playerName" name="playerName" required minlength="3">
-    <div *ngIf="gameForm.controls['playerName'].invalid && (gameForm.controls['playerName'].dirty || gameForm.controls['playerName'].touched)">
+    <div *ngIf="gameForm.controls['playerName'] && (gameForm.controls['playerName'].dirty || gameForm.controls['playerName'].touched)">
       <span *ngIf="gameForm.controls['playerName'].errors?.['required']">Nazwa gracza jest wymagana.</span>
       <span *ngIf="gameForm.controls['playerName'].errors?.['minlength']">Nazwa gracza musi mieć co najmniej 3 znaki.</span>
     </div>
@@ -13,12 +14,13 @@
   <div>
     <label for="email">Adres e-mail gracza:</label>
     <input type="email" id="email" [(ngModel)]="email" name="email" required email>
-    <div *ngIf="gameForm.controls['email'].invalid && (gameForm.controls['email'].dirty || gameForm.controls['email'].touched)">
+    <div *ngIf="gameForm.controls['email'] && (gameForm.controls['email'].dirty || gameForm.controls['email'].touched)">
       <span *ngIf="gameForm.controls['email'].errors?.['required']">Adres e-mail jest wymagany.</span>
       <span *ngIf="gameForm.controls['email'].errors?.['email']">Nieprawidłowy adres e-mail.</span>
     </div>
   </div>
   <button type="submit" [disabled]="!gameForm.form.valid">Rozpocznij grę</button>
 </form>
-
+</div>
+</div>
 

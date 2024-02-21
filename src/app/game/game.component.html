@@ -1,29 +1,54 @@
-<h2>Strona gry</h2>
-<button (click)="exitGame()">Wyjdź z gry</button>
-<p>Witaj, {{ playerName }}!</p>
-<ngx-race #game (carOvertaken)="grantPoints()"></ngx-race>
-<button (click)="onStartOnButtonPressed()">Start</button>
-<button (click)="onStopOnButtonPressed()">Stop</button>
-<button (click)="onResetOnButtonPressed()">Reset</button>
-<button (click)="game.actionTurboOn()">Turbo ON</button>
-<button (click)="game.actionLeft()">Left</button>
-<button (click)="game.actionRight()">Right</button>
-<button (click)="game.actionTurboOff()">Turbo OFF</button>
-<div>
-  <span>Stan gry:</span>
-  <span>{{ gameStarted ? 'Uruchomiona' : 'Zakończona' }}</span>
-</div>
-<div>
-  <span>Liczba punktów:</span>
-  <span>{{ points }}</span>
-</div>
-<div>
-  <span>Czas gry:</span>
-  <span>{{ timePlayed }}</span>
-</div>
-
-
-
-
-
-
+<div class="container">
+  <div class="top-row">
+    <p class="welcome-message">Witaj, {{ playerName }}!</p>
+    <button class="exit-button" (click)="exitGame()">Exit Game</button>
+  </div>
+  <div class="middle-row">
+    <table class="game-history">
+      <h2>Game History</h2>
+      <div class="filter-buttons">
+        <select [(ngModel)]="filterAction">
+          <option value="">Show All</option>
+          <option value="Start">Start</option>
+          <option value="Stop">Stop</option>
+          <option value="Turbo ON">Turbo ON</option>
+          <option value="Turbo OFF">Turbo OFF</option>
+          <option value="Left">Left</option>
+          <option value="Right">Right</option>
+        </select>
+      </div>
+      <div class="sort-buttons">
+        <button (click)="sortByNewest()">Sort by Newest</button>
+        <button (click)="sortByOldest()">Sort by Oldest</button>
+      </div>
+      <ul>
+        <li *ngFor="let event of gameHistory | filterHistory:filterAction">
+          {{ event.timestamp | date:'dd-MM-yyyy HH:mm:ss' }} - {{ event.action }}
+        </li>
+      </ul>
+    </table>
+      <ngx-race #game (carOvertaken)="grantPoints()"></ngx-race>
+    <div class="game-buttons">
+      <button (click)="onStartOnButtonPressed()">Start</button>
+      <button (click)="onStopOnButtonPressed()">Stop</button>
+      <button (click)="onResetOnButtonPressed()">Reset</button>
+      <button (click)="onLeftOnButtonPressed()">Left</button>
+      <button (click)="onRightButtonPressed()">Right</button>
+      <button (click)="onTurboOnButtonPressed()">Turbo ON</button>
+      <button (click)="onTurboOffButtonPressed()">Turbo OFF</button>
+    </div>
+    <div class="game-info">
+      <div class="info-item">
+        <span class="label">Stan gry: </span>
+        <span class="value">{{ gameStarted ? 'Uruchomiona' : 'Zakończona' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Liczba punktów: </span>
+        <span class="value">{{ points }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Czas gry: </span>
+        <span class="value">{{ timePlayed }}</span>
+      </div>
+    </div>
+  </div>

@@ -18,6 +18,7 @@ export class IntroComponent {
   gameStarted: boolean = false;
   points: number = 0;
   timePlayed: number = 0;
+ 
 
   startGame() {
     if (this.playerName && this.email) {

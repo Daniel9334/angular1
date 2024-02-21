@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2, p {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif; 
+  color: white;
+  margin: 20px;
+}
+
+.welcome-message {
+  margin: 0;
+}
+
+.ngx-race {
+  width: 300px;
+}
+/////
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  width: 100%;
+  padding: 10px 20px;
+  margin-bottom: 20px; 
+}
+
+
+.left-row {
+  margin-right: auto; 
+}
+
+.middle-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.right-row {
+  margin-left: auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+//////
+.game-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-buttons button {
+  margin-bottom: 10px;
+}
+
+.game-buttons button {
+  margin: 5px; 
+  padding: 20px 20px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.game-buttons button:hover {
+  background-color: #45a049;
+}
+
+.game-buttons button:active {
+  transform: translateY(2px);
+}
+
+.game-info {
+  margin-left: 20px;
+  font-family: 'Montserrat', sans-serif; 
+  color: white;
+  background-color: #4CAF50;
+  border-radius: 10px;
+  padding: 20px 20px;
+  margin: 20px;
+}
+
+.info-item {
+  margin-bottom: 10px;
+}
+
+.game-history {
+  margin-top: 20px;
+  color: white;
+  font-family: 'Montserrat', sans-serif; 
+  background-color: #4CAF50;
+  border-radius: 10px;
+  padding: 20px 20px;
+  margin: 20px;
+}
+
+.exit-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 20px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+
+
