@@ -120,6 +120,7 @@ export class GameComponent {
 
   grantPoints() {
     this.points += 1;
+    this.recordEvent('Overtaking');
   }
   
   recordEvent(action: string) {
