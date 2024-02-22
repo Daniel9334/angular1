@@ -27,7 +27,8 @@
         </li>
       </ul>
     </table>
-      <ngx-race #game (carOvertaken)="grantPoints()"></ngx-race>
+      <ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+      <ngx-race #game (carOvertaken)="grantPoints()" (gameOver)="onGameOver()"></ngx-race>
     <div class="game-buttons">
       <button (click)="onStartOnButtonPressed()">Start</button>
       <button (click)="onStopOnButtonPressed()">Stop</button>

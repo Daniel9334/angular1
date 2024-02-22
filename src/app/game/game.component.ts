@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output, ViewChild} from '@angular/core'
 import { FormsModule } from '@angular/forms';
 import { NgxRaceComponent, NgxRaceModule } from 'ngx-race';
 import { FilterHistoryPipe } from '../filter-history.pipe';
+import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 
 
 interface GameEvent {
@@ -13,7 +14,7 @@ interface GameEvent {
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [NgxRaceModule, FormsModule, CommonModule, FilterHistoryPipe],
+  imports: [NgxRaceModule, FormsModule, CommonModule, FilterHistoryPipe, KeyboardShortcutsModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -82,6 +83,31 @@ export class GameComponent {
   public sortByOldest() {
     this.gameHistory.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
   }
+  public onGameOver() {
+    alert('Game over');
+  }
+  public shortcuts = [
+    {
+        key: 'up',
+        preventDefault: true,
+        command: (e: any) => this._race.actionTurboOn()
+    },
+    {
+        key: 'left',
+        preventDefault: true,
+        command: (e: any) => this._race.actionLeft()
+    },
+    {
+        key: 'right',
+        preventDefault: true,
+        command: (e: any) => this._race.actionRight()
+    },
+    {
+        key: 'down',
+        preventDefault: true,
+        command: (e: any) => this._race.actionTurboOff()
+    },
+]
 
   exitGame() {
     this.gameStarted = false;
