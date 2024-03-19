@@ -1,7 +1,3 @@
-<div *ngIf="!gameStarted">
-  <app-intro (isStartGame) = 'startGame($event)'></app-intro>
-</div>
+<router-outlet></router-outlet>
 
-<div *ngIf="gameStarted">
-  <app-game [playerName]="playerName" (isexitGame) = 'exitGame($event)' ></app-game>
-</div>
+
