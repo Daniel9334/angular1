@@ -19,7 +19,9 @@
       <span *ngIf="gameForm.controls['email'].errors?.['email']">Nieprawidłowy adres e-mail.</span>
     </div>
   </div>
-  <button type="submit" [disabled]="!gameForm.form.valid">Rozpocznij grę</button>
+  <button 
+    type="submit" [disabled]="!gameForm.form.valid">Rozpocznij grę
+  </button>
 </form>
 </div>
 </div>

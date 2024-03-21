@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxRaceComponent, NgxRaceModule } from 'ngx-race';
 import { FilterHistoryPipe } from '../filter-history.pipe';
 import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
+import { RouterLink } from '@angular/router';
 
 
 interface GameEvent {
@@ -14,7 +15,7 @@ interface GameEvent {
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [NgxRaceModule, FormsModule, CommonModule, FilterHistoryPipe, KeyboardShortcutsModule],
+  imports: [NgxRaceModule, FormsModule, CommonModule, FilterHistoryPipe, KeyboardShortcutsModule, RouterLink],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="top-row">
     <p class="welcome-message">Witaj, {{ playerName }}!</p>
-    <button class="exit-button" (click)="exitGame()">Exit Game</button>
+    <button [routerLink]= "['/intro']" class="exit-button" (click)="exitGame()">Exit Game</button>
   </div>
   <div class="middle-row">
     <table class="game-history">

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intro',
@@ -10,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './intro.component.scss'
 })
 export class IntroComponent {
-  @Output() public isStartGame = new EventEmitter<{playerName: string, email: string}>();
 
   title = 'race';  
   playerName: string | undefined;
@@ -20,11 +20,16 @@ export class IntroComponent {
   timePlayed: number = 0;
  
 
-  startGame() {
+ public constructor(private _router: Router) {
     if (this.playerName && this.email) {
-      this.isStartGame.emit({ playerName: this.playerName, email: this.email })
+      this._router.navigate(['/intro']);
     } 
   }
-}
+
+  public startGame() {
+      alert('Udało się zalogować')
+      this._router.navigate(['/game']); 
+    } 
+  }
 
 

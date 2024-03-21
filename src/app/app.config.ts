@@ -7,7 +7,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter([
       {path: 'intro', component:IntroComponent },
-      {path: 'game', component:GameComponent }
+      {path: 'game', component:GameComponent },
+      {path: '**', redirectTo: 'intro'},
     ])
   ]
 };
