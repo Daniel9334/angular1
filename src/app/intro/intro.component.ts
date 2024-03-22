@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PlayerDataService } from '../player-data.service';
+
 
 @Component({
   selector: 'app-intro',
@@ -18,18 +20,17 @@ export class IntroComponent {
   gameStarted: boolean = false;
   points: number = 0;
   timePlayed: number = 0;
- 
 
- public constructor(private _router: Router) {
-    if (this.playerName && this.email) {
-      this._router.navigate(['/intro']);
-    } 
+constructor(
+  private router: Router,
+  private playerData: PlayerDataService
+) {}
+
+public startGame() {
+  if (this.playerName && this.email) {
+    this.playerData.setPlayerData(this.playerName, this.email);
+    alert('Udało się zalogować');
+    this.router.navigate(['/game']);
+  } 
   }
-
-  public startGame() {
-      alert('Udało się zalogować')
-      this._router.navigate(['/game']); 
-    } 
-  }
-
-
+}

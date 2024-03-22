@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { NgxRaceComponent, NgxRaceModule } from 'ngx-race';
 import { FilterHistoryPipe } from '../filter-history.pipe';
 import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { PlayerDataService } from '../player-data.service';
 
 
 interface GameEvent {
@@ -36,6 +37,22 @@ export class GameComponent {
   filterAction: string = '';
   gameHistory: GameEvent[] = [];
 
+
+  constructor(
+    private playerData: PlayerDataService,
+    private router: Router 
+  ) {
+    this.playerName = this.playerData.getPlayerName();
+    this.email = this.playerData.getEmail();
+
+    if (!this.playerName || !this.email) {
+      debugger;
+      alert('Wprowadź imię i adres e-mail');
+      this.router.navigate(['/intro']);
+  }
+  }
+
+  
   public onStartOnButtonPressed() {
     if (!this.gameStarted) {
       this.gameStarted = true;
@@ -133,5 +150,6 @@ export class GameComponent {
       this.gameHistory.shift(); 
     }
   }
+
 }
 
