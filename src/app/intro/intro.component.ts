@@ -31,6 +31,6 @@ public startGame() {
     this.playerData.setPlayerData(this.playerName, this.email);
     alert('Udało się zalogować');
     this.router.navigate(['/game']);
-  } 
+  }
   }
 }

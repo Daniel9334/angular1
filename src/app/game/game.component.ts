@@ -6,12 +6,19 @@ import { FilterHistoryPipe } from '../filter-history.pipe';
 import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 import { Router, RouterLink } from '@angular/router';
 import { PlayerDataService } from '../player-data.service';
+import { ScoreService } from '../score.service';
 
 
 interface GameEvent {
   timestamp: Date;
   action: string;
 }
+
+interface Highscore {
+  name: string;
+  score: number;
+}
+
 
 @Component({
   selector: 'app-game',
@@ -36,23 +43,43 @@ export class GameComponent {
 
   filterAction: string = '';
   gameHistory: GameEvent[] = [];
-
+  highscores: Highscore[] = [];
+  loadingError: string | undefined;
 
   constructor(
     private playerData: PlayerDataService,
-    private router: Router 
+    private router: Router,
+    private scoreService: ScoreService, 
   ) {
     this.playerName = this.playerData.getPlayerName();
     this.email = this.playerData.getEmail();
-
+    
     if (!this.playerName || !this.email) {
-      debugger;
       alert('Wprowadź imię i adres e-mail');
       this.router.navigate(['/intro']);
   }
-  }
+    this.loadHighscores();
+  };
 
+  loadHighscores() {
+    this.scoreService.load().subscribe((data: any) => {
+      this.highscores = data.slice(0, 10); 
+    },
+    (error) => {
+      console.error('Błąd podczas pobierania danych:', error);
+      this.loadingError = 'Wystąpił błąd podczas pobierania wyników.';
+    });
+  };
+    
+  sortByScoreAsc() {
+      this.highscores.sort((a, b) => a.score - b.score);
+    };
   
+  sortByScoreDesc() {
+      this.highscores.sort((a, b) => b.score - a.score);
+    };
+
+
   public onStartOnButtonPressed() {
     if (!this.gameStarted) {
       this.gameStarted = true;

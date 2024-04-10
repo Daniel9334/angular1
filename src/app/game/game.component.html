@@ -52,5 +52,15 @@
         <span class="label">Czas gry: </span>
         <span class="value">{{ timePlayed }}</span>
       </div>
+      <div class="info-item">
+        <h2>Top 10 result</h2>
+        <ul>
+          <li *ngFor="let highscore of highscores">
+            {{ highscore.name }} - {{ highscore.score }}
+          </li>
+        </ul>
+        <button (click)="sortByScoreAsc()">Sort ascending</button>
+        <button (click)="sortByScoreDesc()">Sort descending</button>
+      </div>
     </div>
   </div>
