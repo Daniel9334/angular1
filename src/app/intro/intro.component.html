@@ -12,11 +12,10 @@
     </div>
   </div>
   <div>
-    <label for="email">Adres e-mail gracza:</label>
-    <input type="email" id="email" [(ngModel)]="email" name="email" required email>
-    <div *ngIf="gameForm.controls['email'] && (gameForm.controls['email'].dirty || gameForm.controls['email'].touched)">
-      <span *ngIf="gameForm.controls['email'].errors?.['required']">Adres e-mail jest wymagany.</span>
-      <span *ngIf="gameForm.controls['email'].errors?.['email']">Nieprawidłowy adres e-mail.</span>
+    <label for="token">Token:</label>
+    <input type="text" id="token" [(ngModel)]="token" name="token" required> 
+    <div *ngIf="gameForm.controls['token'] && (gameForm.controls['token'].dirty || gameForm.controls['token'].touched)">
+      <span *ngIf="gameForm.controls['token'].errors?.['required']">Token 4-cyfrowy jest wymagany.</span>
     </div>
   </div>
   <button 
