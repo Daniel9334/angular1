@@ -1,6 +1,7 @@
 <div class="container">
   <div class="top-row">
-    <p class="welcome-message">Witaj, {{ playerName }}!</p>
+    <p class="welcome-message">Witaj, {{ playerName }}!</p> 
+    <!-- Z SERVICE WZIASC IMIE UZYTKOWNIKA  playerName NA getPlayerName-->
     <button [routerLink]= "['/intro']" class="exit-button" (click)="exitGame()">Exit Game</button>
   </div>
   <div class="middle-row">
@@ -53,14 +54,17 @@
         <span class="value">{{ timePlayed }}</span>
       </div>
       <div class="info-item">
-        <h2>Top 10 result</h2>
+        <h2>Top 10 wyników</h2>
         <ul>
-          <li *ngFor="let highscore of highscores">
+          <li *ngFor="let highscore of highscores | topScores:sortOrder:10">
             {{ highscore.name }} - {{ highscore.score }}
           </li>
         </ul>
-        <button (click)="sortByScoreAsc()">Sort ascending</button>
-        <button (click)="sortByScoreDesc()">Sort descending</button>
+        <button (click)="sortOrder = 'asc'">Sortuj rosnąco</button>
+        <button (click)="sortOrder = 'desc'">Sortuj malejąco</button>
+        
+        <app-myscore></app-myscore>
+
       </div>
     </div>
   </div>

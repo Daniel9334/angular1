@@ -7,6 +7,8 @@ import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 import { Router, RouterLink } from '@angular/router';
 import { PlayerDataService } from '../player-data.service';
 import { ScoreService } from '../score.service';
+import { MyscoreComponent } from '../myscore/myscore.component';
+import { TopScoresPipe } from "../top-scores.pipe";
 
 
 interface GameEvent {
@@ -21,16 +23,16 @@ interface Highscore {
 
 
 @Component({
-  selector: 'app-game',
-  standalone: true,
-  imports: [NgxRaceModule, FormsModule, CommonModule, FilterHistoryPipe, KeyboardShortcutsModule, RouterLink],
-  templateUrl: './game.component.html',
-  styleUrl: './game.component.scss'
+    selector: 'app-game',
+    standalone: true,
+    templateUrl: './game.component.html',
+    styleUrl: './game.component.scss',
+    imports: [MyscoreComponent, NgxRaceModule, FormsModule, CommonModule, FilterHistoryPipe, KeyboardShortcutsModule, RouterLink, TopScoresPipe]
 })
 
 export class GameComponent {
-  @Output() public isexitGame = new EventEmitter<boolean>();
-  @Input() playerName: string | undefined
+  @Output() public isexitGame = new EventEmitter<boolean>();  // MOZNA USUNAC ALE PRZEZ SERVICE PRZEKAZAC
+  @Input() playerName: string
   @ViewChild(NgxRaceComponent)
   private _race!: NgxRaceComponent;
 
@@ -45,6 +47,7 @@ export class GameComponent {
   gameHistory: GameEvent[] = [];
   highscores: Highscore[] = [];
   loadingError: string | undefined;
+  sortOrder: string = 'desc';
 
   constructor(
     private playerData: PlayerDataService,
@@ -59,11 +62,12 @@ export class GameComponent {
       this.router.navigate(['/intro']);
   }
     this.loadHighscores();
+    this.updateScoresList();
   };
 
   loadHighscores() {
     this.scoreService.load().subscribe((data: any) => {
-      this.highscores = data.slice(0, 10); 
+      this.highscores = data
     },
     (error) => {
       console.error('Błąd podczas pobierania danych:', error);
@@ -71,14 +75,30 @@ export class GameComponent {
     });
   };
     
-  sortByScoreAsc() {
-      this.highscores.sort((a, b) => a.score - b.score);
-    };
+  // sortByScoreAsc() {
+  //     this.highscores.sort((a, b) => a.score - b.score)
+  //   };
   
-  sortByScoreDesc() {
-      this.highscores.sort((a, b) => b.score - a.score);
-    };
+  // sortByScoreDesc() {
+  //     this.highscores.sort((a, b) => b.score - a.score)
+  //   };
 
+    public onSubmitScore() {
+      // console.log(this.playerName!, this.points)
+      const scoreData = {
+        playerName: this.playerName!,  // DODAC IF WCZESNIEJ LUB  playerName: this.playerName!, TO NIE JEST NULL
+        score: this.points
+      };
+      this.scoreService.submitScore(scoreData)
+    
+      
+    }
+     private updateScoresList() {
+      setInterval(() => {
+        this.loadHighscores(); 
+      }, 30000); 
+    }
+  
 
   public onStartOnButtonPressed() {
     if (!this.gameStarted) {
@@ -129,7 +149,9 @@ export class GameComponent {
     this.gameHistory.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
   }
   public onGameOver() {
-    alert('Game over');
+    alert('Game over, score send on server');
+    // this.onSubmitScore();  //TU ODKOMENTOWAC WTEDY WYSLE SERWER 
+    clearInterval(this.timer);
   }
   public shortcuts = [
     {
@@ -156,11 +178,11 @@ export class GameComponent {
 
   exitGame() {
     this.gameStarted = false;
-    this.playerName = '';
     this.email = '';
     this.isexitGame.emit(false);
     clearInterval(this.timer);
     this.recordEvent('Exit');
+    this.playerName = '';
   }
 
   grantPoints() {

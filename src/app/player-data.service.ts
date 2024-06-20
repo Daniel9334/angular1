@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 
 export class PlayerDataService {
-  playerName: string | undefined;
-  email: string | undefined;
+  playerName = '';
+  email = '';
 
 
   setPlayerData(playerName: string, email: string) {
@@ -14,11 +14,11 @@ export class PlayerDataService {
     this.email = email;
   }
 
-  getPlayerName(): string | undefined {
+  getPlayerName(): string  {
     return this.playerName;
   }
 
-  getEmail(): string | undefined {
+  getEmail(): string  {
     return this.email;
   }
 }
