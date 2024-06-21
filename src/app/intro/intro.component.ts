@@ -21,12 +21,15 @@ export class IntroComponent {
   gameStarted: boolean = false;
   points: number = 0;
   timePlayed: number = 0;
+  selectedColorPalette: string = 'normal'; 
 
   constructor(
     private router: Router,
     private playerData: PlayerDataService,
     private http: HttpClient
-  ) { }
+  ) { 
+    this.playerData.clearPlayerData(); 
+  }
 
   public startGame() {
     if (this.playerName && this.token) {
@@ -39,7 +42,7 @@ export class IntroComponent {
       (response: any) => {
         if (response && response.success === true) {
           alert('Udało się zalogować');
-          this.router.navigate(['/game']);
+          this.router.navigate(['/game', this.selectedColorPalette]); 
         } else {
           alert('Nieprawidłowy token autoryzacyjny');
         }

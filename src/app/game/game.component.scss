@@ -128,5 +128,23 @@ h2, p {
   margin-left: 20px;
 }
 
+.color-button {
+  background-color: #4CAF50;
+  margin-left: 40px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 10px;
+}
+
+.high-contrast  {
+    background: black
+    
+}
+
+::ng-deep .high-contrast ngx-race-tile.car div {
+  background: red
+}
+
 
 

@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgxRaceComponent, NgxRaceModule } from 'ngx-race';
 import { FilterHistoryPipe } from '../filter-history.pipe';
 import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router'; 
 import { PlayerDataService } from '../player-data.service';
 import { ScoreService } from '../score.service';
 import { MyscoreComponent } from '../myscore/myscore.component';
@@ -20,7 +20,6 @@ interface Highscore {
   name: string;
   score: number;
 }
-
 
 @Component({
     selector: 'app-game',
@@ -42,21 +41,22 @@ export class GameComponent {
   points: number = 0;
   timePlayed: number = 0;
   timer: any;
-
   filterAction: string = '';
   gameHistory: GameEvent[] = [];
   highscores: Highscore[] = [];
   loadingError: string | undefined;
   sortOrder: string = 'desc';
+  selectedColorPalette: string = 'normal'; 
 
   constructor(
     private playerData: PlayerDataService,
     private router: Router,
+    private route: ActivatedRoute,
     private scoreService: ScoreService, 
   ) {
     this.playerName = this.playerData.getPlayerName();
     this.email = this.playerData.getEmail();
-    
+
     if (!this.playerName || !this.email) {
       alert('Wprowadź imię i adres e-mail');
       this.router.navigate(['/intro']);
@@ -64,6 +64,12 @@ export class GameComponent {
     this.loadHighscores();
     this.updateScoresList();
   };
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.selectedColorPalette = params['colors'] || 'normal';
+    });
+  }
 
   loadHighscores() {
     this.scoreService.load().subscribe((data: any) => {
@@ -84,7 +90,7 @@ export class GameComponent {
   //   };
 
     public onSubmitScore() {
-      // console.log(this.playerName!, this.points)
+      // console.log(this.playerName!, this.points
       const scoreData = {
         playerName: this.playerName!,  // DODAC IF WCZESNIEJ LUB  playerName: this.playerName!, TO NIE JEST NULL
         score: this.points
@@ -198,6 +204,12 @@ export class GameComponent {
     if (this.gameHistory.length > 15) {
       this.gameHistory.shift(); 
     }
+  }
+
+  public switchColorPalette(palette: string) {
+    console.log('paleta wybrana: ', palette )
+    this.selectedColorPalette = palette;
+    this.router.navigate(['/game', palette]);
   }
 
 }

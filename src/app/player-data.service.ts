@@ -3,22 +3,29 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-
 export class PlayerDataService {
-  playerName = '';
-  email = '';
-
+  private playerNameKey = '';
+  private emailKey = '';
 
   setPlayerData(playerName: string, email: string) {
-    this.playerName = playerName;
-    this.email = email;
+    localStorage.setItem(this.playerNameKey, playerName);
+    localStorage.setItem(this.emailKey, email);
   }
 
-  getPlayerName(): string  {
-    return this.playerName;
+  getPlayerName(): string {
+    return localStorage.getItem(this.playerNameKey) || '';
   }
 
-  getEmail(): string  {
-    return this.email;
+  getEmail(): string {
+    return localStorage.getItem(this.emailKey) || '';
+  }
+
+  clearPlayerData() {
+    localStorage.removeItem(this.playerNameKey);
+    localStorage.removeItem(this.emailKey);
+  }
+
+  hasPlayerData(): boolean {
+    return this.getPlayerName() !== '' && this.getEmail() !== '';
   }
 }

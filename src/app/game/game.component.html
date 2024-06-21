@@ -1,8 +1,15 @@
-<div class="container">
-  <div class="top-row">
+<div class="container" [ngClass]="{ 'high-contrast': selectedColorPalette === 'high-contrast' }">
+<div class="top-row">
     <p class="welcome-message">Witaj, {{ playerName }}!</p> 
     <!-- Z SERVICE WZIASC IMIE UZYTKOWNIKA  playerName NA getPlayerName-->
     <button [routerLink]= "['/intro']" class="exit-button" (click)="exitGame()">Exit Game</button>
+    <div class="color-button">
+    <label for="colorPalette">Zmień paletę kolorów:  </label>
+      <select id="colorPalette"  [(ngModel)]="selectedColorPalette" (change)="switchColorPalette(selectedColorPalette)">
+        <option value="normal">Normal</option>
+        <option value="high-contrast">Wysoki kontrast</option>
+      </select>
+    </div>
   </div>
   <div class="middle-row">
     <table class="game-history">
@@ -30,7 +37,9 @@
       </ul>
     </table>
       <ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
-      <ngx-race #game (carOvertaken)="grantPoints()" (gameOver)="onGameOver()"></ngx-race>
+      <ngx-race #game 
+      (carOvertaken)="grantPoints()" 
+      (gameOver)="onGameOver()"></ngx-race>
     <div class="game-buttons">
       <button (click)="onStartOnButtonPressed()">Start</button>
       <button (click)="onStopOnButtonPressed()">Stop</button>
@@ -68,3 +77,4 @@
       </div>
     </div>
   </div>
+</div>

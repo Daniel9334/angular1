@@ -18,6 +18,13 @@
       <span *ngIf="gameForm.controls['token'].errors?.['required']">Token 4-cyfrowy jest wymagany.</span>
     </div>
   </div>
+  <div> 
+    <label for="colorPalette">Wybierz paletę kolorów:</label>
+    <select id="colorPalette" [(ngModel)]="selectedColorPalette" name="colorPalette">
+      <option value="normal">Normal</option>
+      <option value="high-contrast">Wysoki kontrast</option>
+    </select>
+  </div>
   <button 
     type="submit" [disabled]="!gameForm.form.valid">Rozpocznij grę
   </button>
