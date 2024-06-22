@@ -12,7 +12,6 @@ h2, p {
   color: white;
   margin: 20px;
 }
-
 .welcome-message {
   margin: 0;
 }
@@ -42,6 +41,7 @@ h2, p {
   align-items: center;
   width: 100%;
   padding: 20px;
+  padding-bottom: 200px;
 }
 
 .right-row {
@@ -137,14 +137,11 @@ h2, p {
   padding: 10px 10px;
 }
 
+//COLORS
 .high-contrast  {
-    background: black
-    
+  background: black;
 }
 
 ::ng-deep .high-contrast ngx-race-tile.car div {
-  background: red
+background: red
 }
-
-
-

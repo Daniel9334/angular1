@@ -1,7 +1,6 @@
 <div class="container" [ngClass]="{ 'high-contrast': selectedColorPalette === 'high-contrast' }">
 <div class="top-row">
     <p class="welcome-message">Witaj, {{ playerName }}!</p> 
-    <!-- Z SERVICE WZIASC IMIE UZYTKOWNIKA  playerName NA getPlayerName-->
     <button [routerLink]= "['/intro']" class="exit-button" (click)="exitGame()">Exit Game</button>
     <div class="color-button">
     <label for="colorPalette">Zmień paletę kolorów:  </label>

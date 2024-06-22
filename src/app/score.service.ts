@@ -20,7 +20,6 @@ export class ScoreService {
     game: 'race',
     score: scoreData.score
   }
-  // debugger;
   return this._http.post(URL, requestbody, {
     headers: {
       'auth-token': '1234',

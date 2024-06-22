@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PlayerDataService {
-  private playerNameKey = '';
-  private emailKey = '';
+  private playerNameKey = 'playerName';
+  private emailKey = 'email';
 
   setPlayerData(playerName: string, email: string) {
     localStorage.setItem(this.playerNameKey, playerName);

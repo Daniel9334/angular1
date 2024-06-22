@@ -1,34 +1,33 @@
 <div class="form-container">
   <div class="form-content">
-<p>WITAJ W GRZE F1 WYŚCIG</p>
+    <p>WITAJ W GRZE F1 WYŚCIG</p>
 
-<form (ngSubmit)="startGame()" #gameForm="ngForm">
-  <div>
-    <label for="playerName">Nazwa gracza:</label>
-    <input type="text" id="playerName" [(ngModel)]="playerName" name="playerName" required minlength="3">
-    <div *ngIf="gameForm.controls['playerName'] && (gameForm.controls['playerName'].dirty || gameForm.controls['playerName'].touched)">
-      <span *ngIf="gameForm.controls['playerName'].errors?.['required']">Nazwa gracza jest wymagana.</span>
-      <span *ngIf="gameForm.controls['playerName'].errors?.['minlength']">Nazwa gracza musi mieć co najmniej 3 znaki.</span>
-    </div>
+    <form [formGroup]="introForm" (ngSubmit)="startGame()">
+      <div>
+        <label for="playerName">Nazwa gracza:</label>
+        <input type="text" id="playerName" formControlName="playerName">
+        <div *ngIf="introForm.get('playerName')?.invalid && (introForm.get('playerName')?.dirty || introForm.get('playerName')?.touched)">
+          <span *ngIf="introForm.get('playerName')?.errors?.['required']">Nazwa gracza jest wymagana.</span>
+          <span *ngIf="introForm.get('playerName')?.errors?.['minlength']">Nazwa gracza musi mieć co najmniej 5 znaków.</span>
+        </div>
+      </div>
+      <div>
+        <label for="token">Token:</label>
+        <input type="text" id="token" formControlName="token">
+        <div *ngIf="introForm.get('token')?.invalid && (introForm.get('token')?.dirty || introForm.get('token')?.touched)">
+          <span *ngIf="introForm.get('token')?.errors?.['required']">Token jest wymagany.</span>
+          <span *ngIf="introForm.get('token')?.errors?.['minlength']">Token musi mieć co najmniej 5 znaków.</span>
+        </div>
+      </div>
+      <div>
+        <label for="colorPalette">Wybierz paletę kolorów:</label>
+        <select id="colorPalette" formControlName="colorPalette">
+          <option value="normal">Normal</option>
+          <option value="high-contrast">Wysoki kontrast</option>
+        </select>
+      </div>
+      <button type="submit" [disabled]="!introForm.valid">Rozpocznij grę</button>
+    </form>
   </div>
-  <div>
-    <label for="token">Token:</label>
-    <input type="text" id="token" [(ngModel)]="token" name="token" required> 
-    <div *ngIf="gameForm.controls['token'] && (gameForm.controls['token'].dirty || gameForm.controls['token'].touched)">
-      <span *ngIf="gameForm.controls['token'].errors?.['required']">Token 4-cyfrowy jest wymagany.</span>
-    </div>
-  </div>
-  <div> 
-    <label for="colorPalette">Wybierz paletę kolorów:</label>
-    <select id="colorPalette" [(ngModel)]="selectedColorPalette" name="colorPalette">
-      <option value="normal">Normal</option>
-      <option value="high-contrast">Wysoki kontrast</option>
-    </select>
-  </div>
-  <button 
-    type="submit" [disabled]="!gameForm.form.valid">Rozpocznij grę
-  </button>
-</form>
-</div>
 </div>
 

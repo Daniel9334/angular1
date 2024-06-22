@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PlayerDataService } from '../player-data.service';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-intro',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './intro.component.html',
   styleUrl: './intro.component.scss'
 })
@@ -22,19 +22,33 @@ export class IntroComponent {
   points: number = 0;
   timePlayed: number = 0;
   selectedColorPalette: string = 'normal'; 
+  introForm!: FormGroup;
 
   constructor(
     private router: Router,
     private playerData: PlayerDataService,
-    private http: HttpClient
-  ) { 
-    this.playerData.clearPlayerData(); 
-  }
+    private http: HttpClient,
+    private fb: FormBuilder
+  )  { }
+  ngOnInit() {
+    this.introForm = this.fb.group({
+      playerName: [this.playerData.getPlayerName() || '', [Validators.required, Validators.minLength(5)]],
+      token: ['', [Validators.required, Validators.minLength(4)]],
+      colorPalette: ['normal']
+    });
 
-  public startGame() {
-    if (this.playerName && this.token) {
-      this.playerData.setPlayerData(this.playerName, this.token);
-      this.validateToken(this.token);
+    this.introForm.get('colorPalette')?.valueChanges.subscribe((value) => {
+      this.selectedColorPalette = value;
+      this.updateColorScheme();
+    });
+
+    this.updateColorScheme();
+  }
+  startGame() {
+    if (this.introForm.valid) {
+      const { playerName, token, colorPalette } = this.introForm.value;
+      this.playerData.setPlayerData(playerName, token); 
+      this.validateToken(token);
     }
   }
    private validateToken(token: string) {
@@ -53,4 +67,14 @@ export class IntroComponent {
       }
     );
   }
+  private updateColorScheme() {
+    const body = document.body;
+    if (this.selectedColorPalette === 'high-contrast') {
+      body.classList.add('high-contrast');
+    } else {
+      body.classList.remove('high-contrast');
+    }
+  }
 }
+
+

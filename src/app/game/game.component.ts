@@ -30,7 +30,7 @@ interface Highscore {
 })
 
 export class GameComponent {
-  @Output() public isexitGame = new EventEmitter<boolean>();  // MOZNA USUNAC ALE PRZEZ SERVICE PRZEKAZAC
+  @Output() public isexitGame = new EventEmitter<boolean>();  
   @Input() playerName: string
   @ViewChild(NgxRaceComponent)
   private _race!: NgxRaceComponent;
@@ -81,18 +81,9 @@ export class GameComponent {
     });
   };
     
-  // sortByScoreAsc() {
-  //     this.highscores.sort((a, b) => a.score - b.score)
-  //   };
-  
-  // sortByScoreDesc() {
-  //     this.highscores.sort((a, b) => b.score - a.score)
-  //   };
-
     public onSubmitScore() {
-      // console.log(this.playerName!, this.points
       const scoreData = {
-        playerName: this.playerName!,  // DODAC IF WCZESNIEJ LUB  playerName: this.playerName!, TO NIE JEST NULL
+        playerName: this.playerName!,  
         score: this.points
       };
       this.scoreService.submitScore(scoreData)
@@ -156,7 +147,7 @@ export class GameComponent {
   }
   public onGameOver() {
     alert('Game over, score send on server');
-    // this.onSubmitScore();  //TU ODKOMENTOWAC WTEDY WYSLE SERWER 
+    this.onSubmitScore();  
     clearInterval(this.timer);
   }
   public shortcuts = [
@@ -207,7 +198,7 @@ export class GameComponent {
   }
 
   public switchColorPalette(palette: string) {
-    console.log('paleta wybrana: ', palette )
+    console.log('Paleta wybrana: ', palette )
     this.selectedColorPalette = palette;
     this.router.navigate(['/game', palette]);
   }

@@ -22,38 +22,19 @@ export class MyscoreComponent implements OnInit{
     this.loadMyScores();
   }
 
-
   
-//   loadMyScores() {
-//     const playerName = this.playerData.getPlayerName();
-//     console.log('player name: ', playerName);
-//     this.scoreService.load().subscribe(
-//       (data: any) => {
-//         console.log('All Scores:', data);  
-//         this.myScores = data.filter((score: any) => score.playerName === playerName);
-//         console.log('filtr Scores:', this.myScores);  
-//       },
-//       (error) => {
-//         console.error('Error loading scores:', error);
-//       }
-//     );
-//   }
-// }
-
-
 loadMyScores() {
   const playerName = this.playerData.getPlayerName();
   console.log('Player Name:', playerName);
   this.scoreService.load().subscribe(
     (data: any) => {
-      console.log('All Scores:', data);  // Dodane logowanie
-      // Upewnijmy się, że struktura danych jest poprawna
+      console.log('All Scores:', data);  
       if (data && Array.isArray(data)) {
         this.myScores = data.filter((score: any) => {
-          console.log('Checking score:', score);  // Logowanie każdego wpisu
-          return score.playerName === playerName;
+          console.log('Checking score:', score);  
+          return score.name === playerName;
         });
-        console.log('Filtered Scores:', this.myScores);  // Dodane logowanie
+        console.log('Filtered Scores:', this.myScores);  
       } else {
         console.error('Data format is incorrect:', data);
       }
@@ -64,4 +45,5 @@ loadMyScores() {
   );
 }
 }
+
 
